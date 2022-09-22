@@ -36,6 +36,7 @@ public class cameraControl : MonoBehaviour
 
     }
 
+    //changing camera angles
     public void ShowThirdPersonView()
     {
         firstPersonCamera.SetActive(false);
