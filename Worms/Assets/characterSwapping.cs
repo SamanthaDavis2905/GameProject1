@@ -11,34 +11,82 @@ public class characterSwapping : MonoBehaviour
     public CinemachineVirtualCamera firstPersonCamera;
     public GameObject camera_1_Location;
     public GameObject camera_2_Location;
+    public GameObject swapTeamConfirmation;
+
+    private bool isTeam_1_Turn = true;
+    private bool isTeam_2_Turn = false;
+
+    private bool isDoingConfirmation = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        swapTeamConfirmation.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //swap character1 to character2
-        if (Input.GetButtonDown("SwapCharacter") && character_1.GetComponent<characterMovement>().isTurnOver)
+        //pull up confirmation text as long as it's not up already and wait for what the player does next
+        if (Input.GetButtonDown("SwapTeam") && !isDoingConfirmation)
         {
-            thirdPersonCamera.m_Follow = character_2.transform;
-            thirdPersonCamera.m_LookAt = character_2.transform;
-            firstPersonCamera.transform.position = camera_2_Location.transform.position; 
-            character_2.GetComponent<characterMovement>().isTurnOver = false;
-        }
+            isDoingConfirmation = true;
+            swapTeamConfirmation.SetActive(true);
+            StartCoroutine(SwitchTeam());
 
-        if (Input.GetButtonDown("SwapCharacter") && character_2.GetComponent<characterMovement>().isTurnOver)
-        {
-            thirdPersonCamera.m_Follow = character_1.transform;
-            thirdPersonCamera.m_LookAt = character_1.transform;
-            character_1.GetComponent<characterMovement>().isTurnOver = false;
+
+            
         }
+        
+
+
+
     }
 
+    //Wait a wee bit, then wait until the player hits swap team or cancel, and then swap team or reset the confirmation thingy
+    private IEnumerator SwitchTeam()
+    {
 
+        yield return new WaitForSeconds(0.5f);
+        yield return new WaitUntil(()=> Input.GetButtonDown("SwapTeam") || Input.GetButtonDown("Cancel"));
+
+        if (Input.GetButtonDown("SwapTeam"))
+        {
+            if (!isTeam_2_Turn)
+            {
+                swapTeamConfirmation.SetActive(false);
+                thirdPersonCamera.m_Follow = character_2.transform;
+                thirdPersonCamera.m_LookAt = character_2.transform;
+                firstPersonCamera.transform.position = camera_2_Location.transform.position;
+                character_2.GetComponent<characterMovement>().playerTotalDistanceTraveled = 0f;
+                character_2.GetComponent<characterMovement>().isThisTeamsTurn = true;
+                character_1.GetComponent<characterMovement>().isThisTeamsTurn = false;
+                isTeam_1_Turn = false;
+                isTeam_2_Turn = true;
+            }
+            else if (!isTeam_1_Turn)
+            {
+                swapTeamConfirmation.SetActive(false);
+                thirdPersonCamera.m_Follow = character_1.transform;
+                thirdPersonCamera.m_LookAt = character_1.transform;
+                firstPersonCamera.transform.position = camera_1_Location.transform.position;
+                character_1.GetComponent<characterMovement>().playerTotalDistanceTraveled = 0f;
+                character_1.GetComponent<characterMovement>().isThisTeamsTurn = true;
+                character_2.GetComponent<characterMovement>().isThisTeamsTurn = false;
+                isTeam_1_Turn = true;
+                isTeam_2_Turn = false;
+            }
+        }
+        else
+        {
+            swapTeamConfirmation.SetActive(false);
+        }
+
+
+        isDoingConfirmation = false;
+            
+    }
 
 
 

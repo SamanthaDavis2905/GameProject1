@@ -21,9 +21,9 @@ public class characterMovement : MonoBehaviour
     public float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
 
-    public bool isTurnOver = false;
+    public bool isThisTeamsTurn = true;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +44,7 @@ public class characterMovement : MonoBehaviour
         }
 
         //tracks movement keys
-        if (!isTurnOver)
+        if (isThisTeamsTurn)
         { 
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
@@ -64,9 +64,10 @@ public class characterMovement : MonoBehaviour
         }
         
         //if the player hits the 'jump' button and is grounded, they get thrown upwards
-        if (Input.GetButtonDown("Jump") && groundedPlayer && !isTurnOver)
+        if (Input.GetButtonDown("Jump") && groundedPlayer && isThisTeamsTurn)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            Debug.Log("Iamjumping");
         }
            
         playerVelocity.y += gravityValue * Time.deltaTime;
@@ -87,7 +88,7 @@ public class characterMovement : MonoBehaviour
         //ends turn and stops movement if you've traveled more distance than is allowed
         if(playerTotalDistanceTraveled >= allowedDistancePerTurn)
         {
-            isTurnOver = true;
+            isThisTeamsTurn = false;
             direction = Vector3.zero;
         }
 
@@ -117,9 +118,10 @@ public class characterMovement : MonoBehaviour
 
 
 
-
-
-
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(groundCheck.position, 0.1f);
+    }
 
 
 } //END CLASS
