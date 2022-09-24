@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class cameraControl : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class cameraControl : MonoBehaviour
     public characterMovement movementScript;
     private float baseSpeed = 0f;
     private float baseRotationSpeed = 0f;
+    public float firstPersonSensitivity;
+    public int firstPersonVerticalInvert = -1;
+    public int firstPersonHorizontalInvert = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -42,27 +46,43 @@ public class cameraControl : MonoBehaviour
         firstPersonCamera.SetActive(false);
         thirdPersonCamera.SetActive(true);
         overheadCamera.SetActive(false);
+        
+        //initiates character movement
         movementScript.playerSpeed = baseSpeed;
         movementScript.turnSmoothTime = baseRotationSpeed;
     }
 
+    
     public void ShowFirstPersonView()
     {
         firstPersonCamera.SetActive(true);
         thirdPersonCamera.SetActive(false);
         overheadCamera.SetActive(false);
-        movementScript.playerSpeed = baseSpeed * 0.5f;
-        movementScript.turnSmoothTime = baseRotationSpeed * 20f;
+        
+        //stops character movement
+        movementScript.playerSpeed = 0f;
+        movementScript.turnSmoothTime = Mathf.Infinity;
+
+        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+
+        //limits horizontal and vertical first person aim up to 90 degrees up and down
+        firstPersonCamera.transform.Rotate(new Vector3(0f, horizontal * firstPersonHorizontalInvert * firstPersonSensitivity * Time.deltaTime, 0f), Space.World);
+        firstPersonCamera.transform.eulerAngles = new Vector3(firstPersonCamera.transform.eulerAngles.x + firstPersonSensitivity * vertical * Time.deltaTime, firstPersonCamera.transform.eulerAngles.y, firstPersonCamera.transform.eulerAngles.z);
     }
+   
 
     public void ShowOverheadView()
     {
         firstPersonCamera.SetActive(false);
         thirdPersonCamera.SetActive(false);
         overheadCamera.SetActive(true);
+        
+        //also stops character movement
         movementScript.playerSpeed = 0f;
         movementScript.turnSmoothTime = Mathf.Infinity;
     }
+
 
 
 }
