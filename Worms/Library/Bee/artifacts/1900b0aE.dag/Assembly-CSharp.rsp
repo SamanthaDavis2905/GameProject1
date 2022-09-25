@@ -361,6 +361,8 @@
 "Assets/cameraControl.cs"
 "Assets/characterMovement.cs"
 "Assets/characterSwapping.cs"
+"Assets/grenadeScript.cs"
+"Assets/weaponShooting.cs"
 -langversion:9.0
 
 /deterministic

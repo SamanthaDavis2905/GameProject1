@@ -22,6 +22,7 @@ public class characterMovement : MonoBehaviour
     private float turnSmoothVelocity;
 
     public bool isThisTeamsTurn = true;
+    public bool canMove = true;
 
 
     // Start is called before the first frame update
@@ -44,7 +45,7 @@ public class characterMovement : MonoBehaviour
         }
 
         //tracks movement keys
-        if (isThisTeamsTurn)
+        if (isThisTeamsTurn && canMove)
         { 
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
@@ -52,7 +53,7 @@ public class characterMovement : MonoBehaviour
         }
   
         //if you're moving at all, do crazy math stuff to make you move around and smooth the turns between directional inputs, ie W to WA to A.
-        if (direction.magnitude >= 0.1f)
+        if (direction.magnitude >= 0.1f && canMove)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -67,7 +68,6 @@ public class characterMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && groundedPlayer && isThisTeamsTurn)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-            Debug.Log("Iamjumping");
         }
            
         playerVelocity.y += gravityValue * Time.deltaTime;

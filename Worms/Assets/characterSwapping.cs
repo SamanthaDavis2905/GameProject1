@@ -53,29 +53,42 @@ public class characterSwapping : MonoBehaviour
 
         if (Input.GetButtonDown("SwapTeam"))
         {
+            //swaps from team 1 to team 2
             if (!isTeam_2_Turn)
             {
                 swapTeamConfirmation.SetActive(false);
                 thirdPersonCamera.m_Follow = character_2.transform;
                 thirdPersonCamera.m_LookAt = character_2.transform;
+                firstPersonCamera.transform.parent = character_2.transform;
                 firstPersonCamera.transform.position = camera_2_Location.transform.position;
+
                 character_2.GetComponent<characterMovement>().playerTotalDistanceTraveled = 0f;
                 character_2.GetComponent<characterMovement>().isThisTeamsTurn = true;
                 character_1.GetComponent<characterMovement>().isThisTeamsTurn = false;
                 isTeam_1_Turn = false;
                 isTeam_2_Turn = true;
+                character_1.GetComponent<weaponShooting>().enabled = false;
+                character_2.GetComponent<weaponShooting>().enabled = true;
+                character_2.GetComponent<weaponShooting>().canShoot = true;
+                character_2.GetComponent<weaponShooting>().equipmentUsed = 0;
             }
+            //swaps from team 2 to team 1
             else if (!isTeam_1_Turn)
             {
                 swapTeamConfirmation.SetActive(false);
                 thirdPersonCamera.m_Follow = character_1.transform;
                 thirdPersonCamera.m_LookAt = character_1.transform;
+                firstPersonCamera.transform.parent = character_1.transform;
                 firstPersonCamera.transform.position = camera_1_Location.transform.position;
                 character_1.GetComponent<characterMovement>().playerTotalDistanceTraveled = 0f;
                 character_1.GetComponent<characterMovement>().isThisTeamsTurn = true;
                 character_2.GetComponent<characterMovement>().isThisTeamsTurn = false;
                 isTeam_1_Turn = true;
                 isTeam_2_Turn = false;
+                character_2.GetComponent<weaponShooting>().enabled = false;
+                character_1.GetComponent<weaponShooting>().enabled = true;
+                character_1.GetComponent<weaponShooting>().canShoot = true;
+                character_1.GetComponent<weaponShooting>().equipmentUsed = 0;
             }
         }
         else

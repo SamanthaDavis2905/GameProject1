@@ -10,8 +10,6 @@ public class cameraControl : MonoBehaviour
     public GameObject overheadCamera;
 
     public characterMovement movementScript;
-    private float baseSpeed = 0f;
-    private float baseRotationSpeed = 0f;
     public float firstPersonSensitivity;
     public int firstPersonVerticalInvert = -1;
     public int firstPersonHorizontalInvert = 1;
@@ -19,8 +17,7 @@ public class cameraControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        baseSpeed = movementScript.playerSpeed;
-        baseRotationSpeed = movementScript.turnSmoothTime;
+
 
     }
     // Update is called once per frame
@@ -30,7 +27,7 @@ public class cameraControl : MonoBehaviour
         {
             ShowFirstPersonView();
         }
-        else if (Input.GetButton("OverheadCam"))
+        else if(Input.GetButton("OverheadCam"))
         {
             ShowOverheadView();
         }else
@@ -48,8 +45,7 @@ public class cameraControl : MonoBehaviour
         overheadCamera.SetActive(false);
         
         //initiates character movement
-        movementScript.playerSpeed = baseSpeed;
-        movementScript.turnSmoothTime = baseRotationSpeed;
+        movementScript.canMove = true;
     }
 
     
@@ -60,8 +56,7 @@ public class cameraControl : MonoBehaviour
         overheadCamera.SetActive(false);
         
         //stops character movement
-        movementScript.playerSpeed = 0f;
-        movementScript.turnSmoothTime = Mathf.Infinity;
+        movementScript.canMove = false;
 
         float vertical = Input.GetAxisRaw("Vertical");
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -79,8 +74,7 @@ public class cameraControl : MonoBehaviour
         overheadCamera.SetActive(true);
         
         //also stops character movement
-        movementScript.playerSpeed = 0f;
-        movementScript.turnSmoothTime = Mathf.Infinity;
+        movementScript.canMove = false;
     }
 
 
