@@ -127,10 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a60a3d948c84a4c4c8a8b90f0066c532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 1000
-  blowRadius: 0
-  blowForce: 0
-  blowDamange: 0
+  grenadeThrowForce: 1000
+  grenadeBlowRadius: 0
+  BlowForce: 0
+  BlowDamange: 0
+  grenadeFuseTime: 3
   whatIsBlastable:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384

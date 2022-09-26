@@ -9,7 +9,9 @@ public class cameraControl : MonoBehaviour
     public GameObject thirdPersonCamera;
     public GameObject overheadCamera;
 
-    public characterMovement movementScript;
+    public characterMovement movementScript1;
+    public characterMovement movementScript2;
+
     public float firstPersonSensitivity;
     public int firstPersonVerticalInvert = -1;
     public int firstPersonHorizontalInvert = 1;
@@ -45,7 +47,8 @@ public class cameraControl : MonoBehaviour
         overheadCamera.SetActive(false);
         
         //initiates character movement
-        movementScript.canMove = true;
+        movementScript1.canMove = true;
+        movementScript2.canMove = true;
     }
 
     
@@ -56,7 +59,8 @@ public class cameraControl : MonoBehaviour
         overheadCamera.SetActive(false);
         
         //stops character movement
-        movementScript.canMove = false;
+        movementScript1.canMove = false;
+        movementScript2.canMove = false;
 
         float vertical = Input.GetAxisRaw("Vertical");
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -74,7 +78,8 @@ public class cameraControl : MonoBehaviour
         overheadCamera.SetActive(true);
         
         //also stops character movement
-        movementScript.canMove = false;
+        movementScript1.canMove = false;
+        movementScript2.canMove = false;
     }
 
 

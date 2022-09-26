@@ -200,7 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 177197429}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: firstPersonCameraLocation_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1635,7 +1635,8 @@ MonoBehaviour:
   firstPersonCamera: {fileID: 1011112394}
   thirdPersonCamera: {fileID: 728018746}
   overheadCamera: {fileID: 1210158644}
-  movementScript: {fileID: 1518133265}
+  movementScript1: {fileID: 1518133265}
+  movementScript2: {fileID: 489441760}
   firstPersonSensitivity: 30
   firstPersonVerticalInvert: -1
   firstPersonHorizontalInvert: 1
@@ -1648,7 +1649,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 448733633}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: firstPersonCameraLocation_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1682,7 +1683,7 @@ GameObject:
   - component: {fileID: 489441761}
   - component: {fileID: 489441760}
   - component: {fileID: 489441763}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: character_2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1709,7 +1710,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   playerTotalDistanceTraveled: 0
-  allowedDistancePerTurn: 10
+  allowedDistancePerTurn: 30
   turnSmoothTime: 0.1
   isThisTeamsTurn: 0
   canMove: 1
@@ -2502,7 +2503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1011112395}
   - component: {fileID: 1011112396}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: firstPersonCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2733,7 +2734,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142304867}
-  m_LocalRotation: {x: 0.12530105, y: 0.05471855, z: -0.006921461, w: 0.9905845}
+  m_LocalRotation: {x: 0.12530103, y: 0.054718543, z: -0.00692146, w: 0.9905845}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2922,7 +2923,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1210042139}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: groundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3093,7 +3094,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214219574}
-  m_LocalRotation: {x: 0.1075257, y: -0.047304943, z: 0.005122028, w: 0.9930631}
+  m_LocalRotation: {x: 0.10752569, y: -0.047304943, z: 0.0051220274, w: 0.9930631}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3113,7 +3114,7 @@ GameObject:
   - component: {fileID: 1218553409}
   - component: {fileID: 1218553411}
   - component: {fileID: 1218553410}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: character_2Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3197,7 +3198,7 @@ GameObject:
   - component: {fileID: 1518133264}
   - component: {fileID: 1518133265}
   - component: {fileID: 1518133266}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: character_1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3292,7 +3293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1775551362}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: shootingPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3529,7 +3530,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1947065856}
   - component: {fileID: 1947065857}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3572,7 +3573,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2005389068}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: shootingPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3603,7 +3604,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2127308325}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: groundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3651,7 +3652,7 @@ GameObject:
   - component: {fileID: 19683327616288946}
   - component: {fileID: 19683327617616018}
   - component: {fileID: 19683327618583122}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: character_1Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
