@@ -41,7 +41,7 @@ public class characterMovement : MonoBehaviour
         groundedPlayer = Physics.CheckSphere(groundCheck.position, 0.1f, whatIsGround);
         if (groundedPlayer && playerVelocity.y < 0)
         {
-            playerVelocity.y = 0f;
+            playerVelocity = Vector3.zero;
         }
 
         //tracks movement keys
@@ -122,6 +122,14 @@ public class characterMovement : MonoBehaviour
     {
         Gizmos.DrawSphere(groundCheck.position, 0.1f);
     }
+
+   public void ExplosionMovingFunction(Vector3 explosionDirection)
+    {
+        controller.Move(-explosionDirection);
+        playerVelocity += explosionDirection * -0.01f;
+
+    }
+
 
 
 } //END CLASS

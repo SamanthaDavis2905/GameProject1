@@ -8,8 +8,8 @@ public class grenadeScript : MonoBehaviour
     public float grenadeThrowForce = 30f;
 
     private float grenadeBlowRadius = 15f;
-    public float BlowForce;
-    public float BlowDamange;
+    public float grenadeBlowForce = 2500f;
+    public float grenadeBlowDamange;
     public float grenadeFuseTime = 3f;
 
     public LayerMask whatIsBlastable;
@@ -34,22 +34,32 @@ public class grenadeScript : MonoBehaviour
     private IEnumerator WaitToExplode()
     {
         yield return new WaitForSeconds(grenadeFuseTime);
-       
-        if (Physics.CheckSphere(transform.position, grenadeBlowRadius, whatIsBlastable))
+
+        Collider[] grenadeHitCharacters = Physics.OverlapSphere(transform.position, grenadeBlowRadius, whatIsBlastable);
+        for (int i = 0; i < grenadeHitCharacters.Length; i++)
         {
-            Debug.Log("grenade boom");
+            Vector3 explosionDirection = (transform.position - grenadeHitCharacters[i].transform.position);
+            grenadeHitCharacters[i].GetComponent<characterMovement>().ExplosionMovingFunction(explosionDirection);
         }
 
-
-
+     
 
     }
+
+ 
+
+
+
+
 
 /*
     void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position, grenadeBlowRadius);
     }
+
+
+
 
 */
 
