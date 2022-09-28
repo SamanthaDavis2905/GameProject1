@@ -24,6 +24,11 @@ public class characterMovement : MonoBehaviour
     public bool isThisTeamsTurn = true;
     public bool canMove = true;
 
+    public float healthPoints = 100f;
+    public bool isDead = false;
+
+    public characterSwapping characterSwappingScript;
+
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +50,7 @@ public class characterMovement : MonoBehaviour
         }
 
         //tracks movement keys
-        if (isThisTeamsTurn && canMove)
+        if (isThisTeamsTurn && canMove && !isDead && !characterSwappingScript.isPaused)
         { 
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
@@ -65,7 +70,7 @@ public class characterMovement : MonoBehaviour
         }
         
         //if the player hits the 'jump' button and is grounded, they get thrown upwards
-        if (Input.GetButtonDown("Jump") && groundedPlayer && isThisTeamsTurn)
+        if (Input.GetButtonDown("Jump") && groundedPlayer && isThisTeamsTurn && !characterSwappingScript.isPaused)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
@@ -92,7 +97,10 @@ public class characterMovement : MonoBehaviour
             direction = Vector3.zero;
         }
 
-
+        if(healthPoints <= 0f)
+        {
+            isDead = true;
+        }
 
         
     
@@ -123,12 +131,22 @@ public class characterMovement : MonoBehaviour
         Gizmos.DrawSphere(groundCheck.position, 0.1f);
     }
 
-   public void ExplosionMovingFunction(Vector3 explosionDirection)
-    {
-        controller.Move(-explosionDirection);
-        playerVelocity += explosionDirection * -0.01f;
+   public void ExplosionMovingFunction(Vector3 explosionDirection, float grenadeBlowDamage, float explosionForce)
+   {
+        //pushes the player a tinyyyy bit in the air prior to the grenade explosion
+        controller.Move(new Vector3(0f, 0.1f, 0f));
 
-    }
+        //pushes the player relative to the direction and force of the grenade
+        playerVelocity += explosionDirection.normalized * explosionForce * -5f;
+        
+        //takes away health relative to the magnitude of the distance to the grenade
+        healthPoints -= grenadeBlowDamage;
+        
+
+   }
+
+    
+        
 
 
 

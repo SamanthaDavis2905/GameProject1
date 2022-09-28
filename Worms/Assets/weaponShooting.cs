@@ -12,6 +12,8 @@ public class weaponShooting : MonoBehaviour
     public Transform shootingPosition;
     public int equipmentUsed = 0;
 
+    public characterSwapping characterSwappingScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,7 @@ public class weaponShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButton("Fire2"))
+        if(Input.GetButton("Fire2") && !characterSwappingScript.isPaused)
         {
             if(Input.GetButtonDown("Fire1"))
             {

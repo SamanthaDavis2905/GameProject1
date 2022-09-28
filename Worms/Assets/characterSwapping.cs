@@ -12,37 +12,55 @@ public class characterSwapping : MonoBehaviour
     public GameObject camera_1_Location;
     public GameObject camera_2_Location;
     public GameObject swapTeamConfirmation;
+    public GameObject team_1_WinText;
+    public GameObject team_2_WinText;
+    public GameObject pauseMenu;
 
     private bool isTeam_1_Turn = true;
     private bool isTeam_2_Turn = false;
 
     private bool isDoingConfirmation = false;
+    public bool isPaused = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
         swapTeamConfirmation.SetActive(false);
+        team_1_WinText.SetActive(false);
+        team_2_WinText.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         //pull up confirmation text as long as it's not up already and wait for what the player does next
-        if (Input.GetButtonDown("SwapTeam") && !isDoingConfirmation)
+        if (Input.GetButtonDown("SwapTeam") && !isDoingConfirmation && !character_1.GetComponent<characterMovement>().isDead && !character_2.GetComponent<characterMovement>().isDead && !isPaused)
         {
             isDoingConfirmation = true;
             swapTeamConfirmation.SetActive(true);
             StartCoroutine(SwitchTeam());
-
-
-            
         }
-        
 
+        if (character_2.GetComponent<characterMovement>().isDead)
+        {
+            team_1_WinText.SetActive(true);
+        }
 
+        if (character_1.GetComponent<characterMovement>().isDead)
+        {
+            team_2_WinText.SetActive(true);
+        }
+
+        if (Input.GetButtonDown("Cancel") && !isPaused && !isDoingConfirmation)
+        {
+            pauseMenu.SetActive(true);
+            isPaused = true;
+            StartCoroutine(PauseMenu());
+        }
 
     }
+
 
     //Wait a wee bit, then wait until the player hits swap team or cancel, and then swap team or reset the confirmation thingy
     private IEnumerator SwitchTeam()
@@ -101,6 +119,14 @@ public class characterSwapping : MonoBehaviour
             
     }
 
+    private IEnumerator PauseMenu()
+    {
+        yield return new WaitForSeconds(0.5f);
+        yield return new WaitUntil(() => Input.GetButtonDown("Cancel"));
+        pauseMenu.SetActive(false);
+        isPaused = false;
+
+    }
 
 
 

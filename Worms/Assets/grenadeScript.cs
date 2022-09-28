@@ -5,12 +5,11 @@ using UnityEngine;
 public class grenadeScript : MonoBehaviour
 {
     private Rigidbody grenadeBody;
-    public float grenadeThrowForce = 30f;
+    private float grenadeThrowForce = 1000f;
 
     private float grenadeBlowRadius = 15f;
-    public float grenadeBlowForce = 2500f;
-    public float grenadeBlowDamange;
-    public float grenadeFuseTime = 3f;
+    private float grenadeBlowDamange = 30f;
+    private float grenadeFuseTime = 3f;
 
     public LayerMask whatIsBlastable;
 
@@ -21,7 +20,6 @@ public class grenadeScript : MonoBehaviour
         grenadeBody.AddRelativeForce(Vector3.forward * grenadeThrowForce);
         
         StartCoroutine(WaitToExplode());
-
 
     }
 
@@ -35,14 +33,31 @@ public class grenadeScript : MonoBehaviour
     {
         yield return new WaitForSeconds(grenadeFuseTime);
 
+        //checks colliders that  the grenade can hit within the radius of the grenade blow
         Collider[] grenadeHitCharacters = Physics.OverlapSphere(transform.position, grenadeBlowRadius, whatIsBlastable);
+        
+        //checks every character within the blast radius, sends the damage and movement info the the character controller script
         for (int i = 0; i < grenadeHitCharacters.Length; i++)
         {
             Vector3 explosionDirection = (transform.position - grenadeHitCharacters[i].transform.position);
-            grenadeHitCharacters[i].GetComponent<characterMovement>().ExplosionMovingFunction(explosionDirection);
+
+            float explosionForce = grenadeBlowRadius - explosionDirection.magnitude;
+            
+           
+            //if the damage is negative, just set it to zero
+            if(grenadeBlowDamange < 0f)
+            {
+                grenadeBlowDamange = 0f;
+            }
+
+            grenadeHitCharacters[i].GetComponent<characterMovement>().ExplosionMovingFunction(explosionDirection, grenadeBlowDamange, explosionForce);
+
+
+
+
         }
 
-     
+        Destroy(gameObject);
 
     }
 
