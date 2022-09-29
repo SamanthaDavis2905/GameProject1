@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class characterMovement : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class characterMovement : MonoBehaviour
     public bool isDead = false;
 
     public characterSwapping characterSwappingScript;
+
+    public TextMeshPro characterHealth;
+
 
 
     // Start is called before the first frame update
@@ -102,8 +106,13 @@ public class characterMovement : MonoBehaviour
             isDead = true;
         }
 
-        
-    
+        //makes character health face the main camera each frame
+        characterHealth.transform.LookAt(Camera.main.transform);
+        characterHealth.SetText("HP: " + healthPoints.ToString());
+
+
+
+
     }
 
     //checks if player is touching their movement keys (excluding jump)

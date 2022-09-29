@@ -11,6 +11,7 @@ public class weaponShooting : MonoBehaviour
     public CinemachineVirtualCamera firstPersonCamera;
     public Transform shootingPosition;
     public int equipmentUsed = 0;
+    public int maxEquipmentUsed = 5;
 
     public characterSwapping characterSwappingScript;
 
@@ -41,7 +42,7 @@ public class weaponShooting : MonoBehaviour
             }
         }
     
-        if(equipmentUsed >= 5)
+        if(equipmentUsed >= maxEquipmentUsed)
         {
             canShoot = false;
         }

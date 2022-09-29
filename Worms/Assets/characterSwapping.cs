@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using TMPro;
 
 public class characterSwapping : MonoBehaviour  
 {
@@ -15,6 +16,8 @@ public class characterSwapping : MonoBehaviour
     public GameObject team_1_WinText;
     public GameObject team_2_WinText;
     public GameObject pauseMenu;
+    public TextMeshProUGUI distanceTraveled;
+    public TextMeshProUGUI grenadesUsed;
 
     private bool isTeam_1_Turn = true;
     private bool isTeam_2_Turn = false;
@@ -59,7 +62,22 @@ public class characterSwapping : MonoBehaviour
             StartCoroutine(PauseMenu());
         }
 
+        //Rounds out the distance traveled that turn, shows it and also shows your max distance you're allowed to travel
+        if (isTeam_1_Turn)
+        {
+            distanceTraveled.SetText("Distance traveled: " + (Mathf.Round(character_1.GetComponent<characterMovement>().playerTotalDistanceTraveled)).ToString() + " out of " + (character_1.GetComponent<characterMovement>().allowedDistancePerTurn).ToString());
+            grenadesUsed.SetText("Grenades used: " + (character_1.GetComponent<weaponShooting>().equipmentUsed) + " out of " + (character_1.GetComponent<weaponShooting>().maxEquipmentUsed));
+        }
+        
+        if (isTeam_2_Turn)
+        {
+            distanceTraveled.SetText("Distance traveled: " + (Mathf.Round(character_2.GetComponent<characterMovement>().playerTotalDistanceTraveled)).ToString() + " out of " + (character_2.GetComponent<characterMovement>().allowedDistancePerTurn).ToString());
+            grenadesUsed.SetText("Grenades used: " + (character_2.GetComponent<weaponShooting>().equipmentUsed) + " out of " + (character_2.GetComponent<weaponShooting>().maxEquipmentUsed));
+        }
+
+
     }
+
 
 
     //Wait a wee bit, then wait until the player hits swap team or cancel, and then swap team or reset the confirmation thingy
@@ -81,6 +99,7 @@ public class characterSwapping : MonoBehaviour
                 firstPersonCamera.transform.position = camera_2_Location.transform.position;
 
                 character_2.GetComponent<characterMovement>().playerTotalDistanceTraveled = 0f;
+                               
                 character_2.GetComponent<characterMovement>().isThisTeamsTurn = true;
                 character_1.GetComponent<characterMovement>().isThisTeamsTurn = false;
                 isTeam_1_Turn = false;
