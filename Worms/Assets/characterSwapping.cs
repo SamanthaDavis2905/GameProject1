@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using TMPro;
+using UnityEngine.UI;
 
 public class characterSwapping : MonoBehaviour  
 {
@@ -18,6 +19,8 @@ public class characterSwapping : MonoBehaviour
     public GameObject pauseMenu;
     public TextMeshProUGUI distanceTraveled;
     public TextMeshProUGUI grenadesUsed;
+    public Slider firstPersonSlider;
+    public Slider thirdPersonSlider;
 
     private bool isTeam_1_Turn = true;
     private bool isTeam_2_Turn = false;
@@ -76,8 +79,23 @@ public class characterSwapping : MonoBehaviour
         }
 
 
+
+       
+
     }
 
+    public void ChangeFOV(bool changeFirstPersonCamera)
+    {
+        if (changeFirstPersonCamera)
+        {
+            firstPersonCamera.m_Lens.FieldOfView = firstPersonSlider.value;
+        }
+        else
+        {
+            thirdPersonCamera.m_Lens.FieldOfView = thirdPersonSlider.value;
+        }
+
+    }
 
 
     //Wait a wee bit, then wait until the player hits swap team or cancel, and then swap team or reset the confirmation thingy
