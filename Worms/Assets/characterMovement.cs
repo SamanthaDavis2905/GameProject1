@@ -146,7 +146,7 @@ public class characterMovement : MonoBehaviour
         controller.Move(new Vector3(0f, 0.1f, 0f));
 
         //pushes the player relative to the direction and force of the grenade
-        playerVelocity += explosionDirection.normalized * explosionForce * -5f;
+        playerVelocity += explosionDirection.normalized * explosionForce * -1f;
         
         //takes away health relative to the magnitude of the distance to the grenade
         healthPoints -= grenadeBlowDamage;
