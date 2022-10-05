@@ -361,8 +361,8 @@
 "Assets/cameraControl.cs"
 "Assets/characterMovement.cs"
 "Assets/characterSwapping.cs"
-"Assets/Destroyed_city_FREE/Standard Assets/Character Controllers/Sources/Scripts/MouseLook.cs"
 "Assets/grenadeScript.cs"
+"Assets/Starfield Skybox/Demo/Script/LookCamera.cs"
 "Assets/weaponShooting.cs"
 -langversion:9.0
 
